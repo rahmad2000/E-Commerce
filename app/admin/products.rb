@@ -44,15 +44,15 @@ ActiveAdmin.register Product do
       row :stock_quantity
       row :category
       row :image do |product|
-        image_tag url_for(product.image) if product.image.attached?
         if product.image.attached?
           image_tag product.image.variant(resize_to_limit: [300, 300]).processed
         else
-          text 'No Image'
+          'No Image' # Directly return the string
         end
       end
     end
     active_admin_comments
   end
+
 
 end
