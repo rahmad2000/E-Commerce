@@ -74,3 +74,7 @@ gem "activeadmin", "~> 3.2"
 gem "devise", "~> 4.9"
 
 gem "sassc-rails", "~> 2.1"
+
+gem "image_processing", "~> 1.12"
+
+gem "mini_magick", "~> 4.12"
