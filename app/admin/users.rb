@@ -15,13 +15,14 @@ ActiveAdmin.register User do
   #   permitted
   # end
   # app/admin/users.rb
-  permit_params :name, :email, :password_digest, :is_admin
+  permit_params :name, :email, :password, :password_confirmation, :is_admin
 
   form do |f|
     f.inputs 'User Details' do
       f.input :name
       f.input :email
-      f.input :password_digest
+      f.input :password
+      f.input :password_confirmation
       f.input :is_admin
     end
     f.actions

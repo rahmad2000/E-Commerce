@@ -18,15 +18,20 @@ ActiveAdmin.register Product do
 
   permit_params :name, :description, :price, :stock_quantity, :category_id, :image
 
+  filter :name
+  filter :price
+  filter :stock_quantity
+  filter :category, as: :select, collection: -> { Category.all }
+  filter :created_at
+
   form do |f|
-    f.semantic_errors *f.object.errors.keys
     f.inputs 'Product Details' do
       f.input :name
       f.input :description
       f.input :price
       f.input :stock_quantity
       f.input :category, as: :select, collection: Category.all.map { |c| [c.name, c.id] }, include_blank: false
-      f.input :image, as: :file if f.object.class.reflect_on_association(:image).present?
+      f.input :image, as: :file
     end
     f.actions
   end
@@ -40,6 +45,11 @@ ActiveAdmin.register Product do
       row :category
       row :image do |product|
         image_tag url_for(product.image) if product.image.attached?
+        if product.image.attached?
+          image_tag product.image.variant(resize_to_limit: [300, 300]).processed
+        else
+          text 'No Image'
+        end
       end
     end
     active_admin_comments
